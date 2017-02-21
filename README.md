@@ -2,7 +2,7 @@ Symfony Test
 ========================
 # Installation manual (Windows)
 
-* Add in your `C:\Users\<Your_User>\Homestead.yaml` next block:
+* Add in your `C:\Users\<Your_User>\.homestead\Homestead.yaml` next block:
 ```yaml
 - map: smf.dev
       to: /home/vagrant/www/smf/web
