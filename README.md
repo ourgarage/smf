@@ -19,7 +19,7 @@ Symfony Test
 * Run `vagrant reload --provision`
 * Run `vagrant ssh`
 * Run `cd www`
-* Run `git clone git@github.com:ourgarage/vagrant.git`
+* Run `git clone git@github.com:ourgarage/smf.git`
 * Run `cd smf`
 * Run `composer install`
 * Installation complete!
