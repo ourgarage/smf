@@ -1,5 +1,5 @@
 ourgarage_blog:
-    resource: "@OurgarageBlogBundle/Controller/"
+    resource: "@BlogBundle/Controller/"
     type:     annotation
     prefix:   /
 

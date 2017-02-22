@@ -1,6 +1,6 @@
 <?php
 
-namespace Ourgarage\BlogBundle\Controller;
+namespace BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,7 +20,7 @@ class DefaultController extends Controller
             containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
             versions of Lorem Ipsum.';
 
-        return $this->render('OurgarageBlogBundle:Default:index.html.twig', compact('head', 'text'));
+        return $this->render('BlogBundle:Default:index.html.twig', compact('head', 'text'));
     }
 
     /**
@@ -30,6 +30,6 @@ class DefaultController extends Controller
     {
         $text = 'This test text';
 
-        return $this->render('OurgarageBlogBundle:Default:page.html.twig', compact('text'));
+        return $this->render('BlogBundle:Default:page.html.twig', compact('text'));
     }
 }
