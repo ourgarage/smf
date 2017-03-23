@@ -170,7 +170,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return [];
+        return ['ROLE_USER'];
     }
 
     /**

@@ -26,7 +26,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $user->setName('Administrator');
         $user->setEmail('admin@example.com');
 
-        $plainPassword = 'ryanpass';
+        $plainPassword = '123456';
         $encoder = $this->container->get('security.password_encoder');
         $encoded = $encoder->encodePassword($user, $plainPassword);
 
