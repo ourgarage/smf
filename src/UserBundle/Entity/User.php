@@ -29,6 +29,13 @@ class User implements UserInterface, \Serializable
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
 
     /**
      * Get id
@@ -111,16 +118,21 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string The password
+     * @return mixed
      */
     public function getPassword()
     {
-        // TODO: Implement getPassword() method.
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
     }
 
     /**
@@ -142,7 +154,7 @@ class User implements UserInterface, \Serializable
      */
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->email;
     }
 
     /**
