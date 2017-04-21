@@ -6,7 +6,7 @@ core:
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /user
 
 app:
     resource: "@AppBundle/Controller/"

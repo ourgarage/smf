@@ -1,7 +1,7 @@
-<!DOCTYPE HTML>
-<html lang='en'>
-<body>
-<h1>Hello</h1>
-<p>World!</p>
-</body>
-</html>
+{% extends 'UserBundle:Layout:main.html.twig' %}
+
+{% block title %}Users index page{% endblock %}
+
+{% block body %}
+<p><a href="{{ path('create-user') }}">Add new user!</a></p>
+{% endblock %}

@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  *
- * @ORM\Table(name="user", indexes={@ORM\Index(columns={"email"})})
+ * @ORM\Table(name="users", indexes={@ORM\Index(columns={"email"})})
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
@@ -42,7 +42,13 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string", length=100)
      */
     private $password;
-
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="position", type="string", length=255, nullable=true)
+     */
+    private $position;
 
     /**
      * Get id
@@ -120,6 +126,25 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+    
+    /**
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+    
+    /**
+     * @param string $position
+     * @return User
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        
+        return $this;
+    }
 
     /**
      * String representation of object
@@ -133,7 +158,8 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->name,
             $this->email,
-            $this->password
+            $this->password,
+            $this->position
         ]);
     }
 
@@ -152,7 +178,8 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->name,
             $this->email,
-            $this->password
+            $this->password,
+            $this->position
             ) = unserialize($serialized);
     }
 
