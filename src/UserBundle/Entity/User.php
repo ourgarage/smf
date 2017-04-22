@@ -44,7 +44,6 @@ class User implements UserInterface, \Serializable
      *
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
      * )
      */
     private $email;
@@ -59,7 +58,12 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="plain_password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
      */
     private $plainPassword;
 
@@ -121,14 +125,6 @@ class User implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
-
 
     /**
      * Get id
