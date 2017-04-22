@@ -68,6 +68,24 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getPlainPassword()
@@ -79,9 +97,9 @@ class User implements UserInterface, \Serializable
      * @param string $plainPassword
      * @return User
      */
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword($password)
     {
-        $this->plainPassword = $plainPassword;
+        $this->plainPassword = $password;
         return $this;
     }
 
@@ -168,7 +186,13 @@ class User implements UserInterface, \Serializable
      */
     public function serialize()
     {
-        // TODO: Implement serialize() method.
+        return serialize([
+            $this->id,
+            $this->name,
+            $this->email,
+            $this->password,
+            $this->role
+        ]);
     }
 
     /**
@@ -182,7 +206,13 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        list (
+            $this->id,
+            $this->name,
+            $this->email,
+            $this->password,
+            $this->role
+            ) = unserialize($serialized);
     }
 
     /**
@@ -203,25 +233,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
+        return ['ROLE_USER'];
     }
 
     /**

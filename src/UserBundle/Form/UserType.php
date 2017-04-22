@@ -21,7 +21,7 @@ class UserType extends AbstractType
     {
         $builder->add('name', TextType::class, ['label' => 'Name'])
             ->add('email', EmailType::class, ['label' => 'Email'])
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
@@ -41,9 +41,9 @@ class UserType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'UserBundle\Entity\User'
-        ));
+        ]);
     }
     /**
      * {@inheritdoc}
@@ -52,6 +52,4 @@ class UserType extends AbstractType
     {
         return null;
     }
-
-
 }
