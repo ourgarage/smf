@@ -34,7 +34,7 @@ class DefaultController extends Controller
 
             return $this->redirectToRoute('users');
         }
-        
+
         return $this->render('UserBundle:Default:create.html.twig', [
             'form' => $form->createView()
         ]);

@@ -3,6 +3,12 @@
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +19,23 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('email')->add('role')->add('plainPassword')->add('password');
+        $builder->add('name', TextType::class, ['label' => 'Name'])
+            ->add('email', EmailType::class, ['label' => 'Email'])
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
+            ])
+            ->add('role', ChoiceType::class, [
+                'choices' => [
+                    'admin' => 'Admin',
+                    'user' => 'User',
+                    'boss' => 'Boss'
+                ]
+            ])
+            ->add('submit', SubmitType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -25,13 +45,12 @@ class UserType extends AbstractType
             'data_class' => 'UserBundle\Entity\User'
         ));
     }
-
     /**
      * {@inheritdoc}
      */
     public function getBlockPrefix()
     {
-        return 'userbundle_user';
+        return null;
     }
 
 
