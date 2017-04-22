@@ -17,7 +17,7 @@ class DefaultController extends MainController
     {
         return $this->render('UserBundle:Default:index.html.twig');
     }
-    
+
     /**
      * @Route("/create", name="create-user")
      */
@@ -26,15 +26,19 @@ class DefaultController extends MainController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-    
+
             return $this->redirectToRoute('users');
         }
-        
+
         return $this->render('UserBundle:Users:create.html.twig', [
             'form' => $form->createView()
         ]);

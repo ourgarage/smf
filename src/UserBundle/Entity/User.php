@@ -51,6 +51,11 @@ class User implements UserInterface, \Serializable
     private $position;
 
     /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * Get id
      *
      * @return int
@@ -106,6 +111,22 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param $password
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     /**
