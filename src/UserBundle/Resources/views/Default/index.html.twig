@@ -3,5 +3,8 @@
 {% block title %}Users index page{% endblock %}
 
 {% block body %}
-<p><a href="{{ path('create-user') }}">Add new user!</a></p>
+<ul>
+    <li><a href="{{ path('create-user') }}">Add new user!</a></li>
+    <li><a href="{{ path('all-users') }}">Show all users</a></li>
+</ul>
 {% endblock %}

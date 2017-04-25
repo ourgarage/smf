@@ -1,0 +1,12 @@
+{% extends 'UserBundle:Layout:main.html.twig' %}
+
+{% block title %}All Users{% endblock %}
+
+{% block body %}
+    <h2>All users:</h2>
+    <ul>
+        {% for user in users %}
+            <li><a href="{{ path('edit-user', {'id': user.id }) }}">{{ user.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
