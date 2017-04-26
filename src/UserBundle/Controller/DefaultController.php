@@ -60,7 +60,7 @@ class DefaultController extends MainController
     /**
      * @param Request $request
      * @param User $user
-     * 
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     private function handleUserForm(Request $request, User $user)
