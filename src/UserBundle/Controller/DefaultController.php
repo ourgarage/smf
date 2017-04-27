@@ -61,7 +61,7 @@ class DefaultController extends MainController
      * @param Request $request
      * @param int $id
      *
-     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/delete/{id}", name="del-user")
      */
     public function deleteUserAction(Request $request, $id)
