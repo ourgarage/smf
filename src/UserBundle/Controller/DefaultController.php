@@ -59,6 +59,24 @@ class DefaultController extends MainController
     
     /**
      * @param Request $request
+     * @param int $id
+     *
+     *
+     * @Route("/delete/{id}", name="del-user")
+     */
+    public function deleteUserAction(Request $request, $id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        
+        $em = $this->getManager();
+        $em->remove($user);
+        $em->flush();
+    
+        return $this->redirectToRoute('all-users');
+    }
+    
+    /**
+     * @param Request $request
      * @param User $user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
