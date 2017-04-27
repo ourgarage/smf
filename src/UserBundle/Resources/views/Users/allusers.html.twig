@@ -9,9 +9,13 @@
             <li>
                 <a href="{{ path('edit-user', {'id': user.id }) }}">{{ user.name }}</a>
 
-                <form action="{{ path('del-user', {'id': user.id }) }}" method="post">
+                {#<form action="{{ path('del-user', {'id': user.id }) }}" method="DELETE">
+                    <input type="hidden" name="_method" value="DELETE">
                     <button type="submit">Delete</button>
-                </form>
+                </form>#}
+                {{ form_start(form, {'action': path('del-user', {'id': user.id}), 'method': 'DELETE'}) }}
+
+                {{ form_end(form) }}
             </li>
         {% endfor %}
     </ul>

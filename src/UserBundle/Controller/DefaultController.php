@@ -3,8 +3,10 @@
 namespace UserBundle\Controller;
 
 use CoreBundle\Controller\MainController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use UserBundle\Form\UserType;
+use CoreBundle\Form\DeleteType;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 
@@ -40,7 +42,12 @@ class DefaultController extends MainController
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
-        return $this->render('UserBundle:Users:allusers.html.twig', compact('users'));
+        $form = $this->createForm(DeleteType::class);
+
+        return $this->render('UserBundle:Users:allusers.html.twig', [
+            'users' => $users,
+            'form' => $form->createView()
+        ]);
     }
     
     /**
@@ -63,16 +70,23 @@ class DefaultController extends MainController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/delete/{id}", name="del-user")
+     * @Method("DELETE")
      */
     public function deleteUserAction(Request $request, $id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        
-        $em = $this->getManager();
-        $em->remove($user);
-        $em->flush();
-    
-        return $this->redirectToRoute('all-users');
+        $form = $this->createForm(DeleteType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getManager();
+            $em->remove($user);
+            $em->flush();
+
+            return $this->redirectToRoute('all-users');
+        }
+
+
     }
     
     /**
@@ -102,4 +116,12 @@ class DefaultController extends MainController
             'form' => $form->createView()
         ]);
     }
+
+    /*private function createDeleteForm(User $user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('del-user', ['id' => $user->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
+    }*/
 }
