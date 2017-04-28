@@ -5,10 +5,9 @@ namespace UserBundle\Controller;
 use CoreBundle\Controller\MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use UserBundle\Form\UserType;
-use CoreBundle\Form\DeleteType;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
+use UserBundle\Form\UserType;
 
 class DefaultController extends MainController
 {
@@ -30,7 +29,7 @@ class DefaultController extends MainController
     public function createUserAction(Request $request)
     {
         $user = new User();
-    
+        
         return $this->handleUserForm($request, $user);
     }
     
@@ -41,13 +40,8 @@ class DefaultController extends MainController
     public function allUsersAction()
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-
-        $form = $this->createForm(DeleteType::class);
-
-        return $this->render('UserBundle:Users:allusers.html.twig', [
-            'users' => $users,
-            'form' => $form->createView()
-        ]);
+        
+        return $this->render('UserBundle:Users:allusers.html.twig', compact('users'));
     }
     
     /**
@@ -60,7 +54,7 @@ class DefaultController extends MainController
     public function editUserAction(Request $request, $id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
+        
         return $this->handleUserForm($request, $user);
     }
     
@@ -75,18 +69,12 @@ class DefaultController extends MainController
     public function deleteUserAction(Request $request, $id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $form = $this->createForm(DeleteType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getManager();
-            $em->remove($user);
-            $em->flush();
-
-            return $this->redirectToRoute('all-users');
-        }
-
-
+        
+        $em = $this->getManager();
+        $em->remove($user);
+        $em->flush();
+        
+        return $this->redirectToRoute('all-users');
     }
     
     /**
@@ -99,29 +87,21 @@ class DefaultController extends MainController
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-    
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-        
+            
             $em = $this->getManager();
             $em->persist($user);
             $em->flush();
-        
+            
             return $this->redirectToRoute('users');
         }
-    
+        
         return $this->render('UserBundle:Users:user_manage.html.twig', [
             'form' => $form->createView()
         ]);
     }
-
-    /*private function createDeleteForm(User $user)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('del-user', ['id' => $user->getId()]))
-            ->setMethod('DELETE')
-            ->getForm();
-    }*/
 }

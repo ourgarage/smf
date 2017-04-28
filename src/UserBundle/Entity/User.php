@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -26,6 +27,11 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50
+     * )
      */
     private $name;
 
@@ -33,6 +39,8 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -52,6 +60,11 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min = 6,
+     *     max = 10
+     * )
      */
     private $plainPassword;
 
