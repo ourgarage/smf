@@ -4,6 +4,7 @@ namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use UserBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -42,5 +43,16 @@ class DefaultController extends Controller
         return $this->render('UserBundle:Default:create.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/users", name="all-users")
+     */
+    public function getAllUsersAction()
+    {
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        return $this->render('UserBundle:Default:all-users.html.twig', compact('users'));
     }
 }
