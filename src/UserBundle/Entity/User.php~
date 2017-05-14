@@ -277,45 +277,5 @@ class User implements UserInterface, \Serializable
     }
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->post = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add post
-     *
-     * @param \BlogBundle\Entity\Post $post
-     *
-     * @return User
-     */
-    public function addPost(\BlogBundle\Entity\Post $post)
-    {
-        $this->post[] = $post;
-
-        return $this;
-    }
-
-    /**
-     * Remove post
-     *
-     * @param \BlogBundle\Entity\Post $post
-     */
-    public function removePost(\BlogBundle\Entity\Post $post)
-    {
-        $this->post->removeElement($post);
-    }
-
-    /**
-     * Get post
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPost()
-    {
-        return $this->post;
-    }
 }
+
