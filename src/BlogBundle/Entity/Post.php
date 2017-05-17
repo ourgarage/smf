@@ -4,6 +4,7 @@ namespace BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Entity\User;
 
 /**
  * Post
@@ -24,7 +25,7 @@ class Post
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="posts")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
     private $user;
 
@@ -72,11 +73,11 @@ class Post
     /**
      * Set user
      *
-     * @param \UserBundle\Entity\User $user
+     * @param User $user
      *
      * @return Post
      */
-    public function setUser(\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -86,7 +87,7 @@ class Post
     /**
      * Get user
      *
-     * @return \UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {

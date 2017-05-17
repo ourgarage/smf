@@ -2,6 +2,8 @@
 
 namespace UserBundle\Entity;
 
+use BlogBundle\Entity\Post;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,9 +26,9 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Post", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Post", mappedBy="user")
      */
-    private $post;
+    private $posts;
 
     /**
      * @var string
@@ -275,26 +277,25 @@ class User implements UserInterface, \Serializable
     {
         // TODO: Implement eraseCredentials() method.
     }
-
-
+    
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->post = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
      * Add post
      *
-     * @param \BlogBundle\Entity\Post $post
+     * @param Post $post
      *
      * @return User
      */
-    public function addPost(\BlogBundle\Entity\Post $post)
+    public function addPost(Post $post)
     {
-        $this->post[] = $post;
+        $this->posts[] = $post;
 
         return $this;
     }
@@ -302,20 +303,20 @@ class User implements UserInterface, \Serializable
     /**
      * Remove post
      *
-     * @param \BlogBundle\Entity\Post $post
+     * @param Post $post
      */
-    public function removePost(\BlogBundle\Entity\Post $post)
+    public function removePost(Post $post)
     {
-        $this->post->removeElement($post);
+        $this->posts->removeElement($post);
     }
 
     /**
-     * Get post
+     * Get posts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPost()
+    public function getPosts()
     {
-        return $this->post;
+        return $this->posts;
     }
 }
